@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(collection =  "todos")
-public class TodoDto {
+public class Todo {
     @Id
     private String id;
 
