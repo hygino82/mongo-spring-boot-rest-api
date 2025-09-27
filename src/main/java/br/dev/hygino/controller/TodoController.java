@@ -69,7 +69,7 @@ public class TodoController {
         document.setUpdatedAt(LocalDateTime.now());
         document.setDescription(dto.description());
         document.setTitle(dto.title());
-        document.setCompleted(dto.completed() != null ? dto.completed() : document.isCompleted());
+        document.setCompleted(dto.completed() != null ? dto.completed() : document.getCompleted());
 
         return ResponseEntity.status(HttpStatus.OK).body(result.get());
     }
