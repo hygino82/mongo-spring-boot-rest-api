@@ -1,0 +1,19 @@
+meta {
+  name: Update
+  type: http
+  seq: 1
+}
+
+put {
+  url: http://localhost:8080/api/todo/68d5cdafad30f9730f7bf2da
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "title": "Limpar caixa de areia",
+    "description": "Limpar caixa de areia do mimi e trocar areia",
+    "completed": false
+  }
+}

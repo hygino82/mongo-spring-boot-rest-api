@@ -14,6 +14,7 @@ public record RequestTodoDto(
                 max = 100,
                 min = 3,
                 message = "A descrição deve ter entre 3 e 100 caracteres"
-        ) String description
+        ) String description,
+        Boolean completed
 ) {
 }

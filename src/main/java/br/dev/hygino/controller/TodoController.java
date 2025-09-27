@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,8 +35,8 @@ public class TodoController {
                     null,
                     dto.title(),
                     dto.description(),
-                    false,
-                    LocalDate.now(),
+                    dto.completed() != null ? dto.completed() : false,
+                    LocalDateTime.now(),
                     null
             );
             entity = todoRepository.save(entity);
@@ -53,6 +53,23 @@ public class TodoController {
         if (result.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Todo with id: " + id + " not found!");
         }
+
+        return ResponseEntity.status(HttpStatus.OK).body(result.get());
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable("id") String id, @RequestBody @Valid RequestTodoDto dto) {
+        final Optional<Todo> result = todoRepository.findById(id);
+
+        if (result.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Todo with id: " + id + " not found!");
+        }
+
+        var document = result.get();
+        document.setUpdatedAt(LocalDateTime.now());
+        document.setDescription(dto.description());
+        document.setTitle(dto.title());
+        document.setCompleted(dto.completed() != null ? dto.completed() : document.isCompleted());
 
         return ResponseEntity.status(HttpStatus.OK).body(result.get());
     }
