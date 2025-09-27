@@ -73,4 +73,15 @@ public class TodoController {
 
         return ResponseEntity.status(HttpStatus.OK).body(result.get());
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable("id") String id) {
+        if (todoRepository.existsById(id)) {
+            todoRepository.deleteById(id);
+
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
 }
